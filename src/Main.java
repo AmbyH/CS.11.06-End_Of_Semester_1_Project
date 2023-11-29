@@ -1,3 +1,13 @@
+/*
+Name: Amboise Hui
+Teacher: Mr Ewing
+Date: 27 Nov 2023
+Project: Hangman
+Collaborators:None
+Description: Basic Hangman game, 8 guesses, reads from the word file given.
+*/
+
+
 import java.util.Random;
 import java.util.Scanner;
 
