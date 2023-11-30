@@ -3,6 +3,7 @@ are you allowed to guess a whole word?
 
 
  */
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,12 +15,44 @@ public class v2 {
     public static int guesses = 8;
     public static String[] wordList = {"HELLO", "GOODBYE", "PYTHAGORAS", "CHAIR", "BICUBIC", "MONITOR", "RECOMMENDATION", "MYOPIC", "VISION", "PROJECT"};
 
-    public static void main(String[] args) {
+    public v2() throws IOException {
+    }
 
-        int guesses = 8;
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Hello, welcome to Hangman!!! :)");
         System.out.println("Input a letter to get started!");
-        play(1); //play once as the user ran the code to play the game
+        System.out.println("Would you like to add a custom word into the list? (y/n)");
+        boolean addWords = false;
+        input = scanner.nextLine();
+        while (!checkValidInput(input)) {
+            System.out.println("Please input (y/n)");
+        }
+        while (!addWords) {
+            if (input.equals("y")) {
+                System.out.println("What do you want to input? (This change will be permanent)");
+                input = scanner.nextLine();
+                addToFile("HangmanWordsList.txt", input);
+                System.out.println(input + " has been added. ");
+                System.out.println("Do you want to add more words? (y/n)");
+                input = scanner.nextLine();
+                while (!checkValidInput(input)) {
+                    System.out.println("Please input (y/n)");
+                }
+                if (input.equals("y")) {
+                    addWords = false;
+                }
+                else {
+                    addWords = true;
+                }
+            }
+            else {
+                addWords = true;
+            }
+
+        }
+        play(1);
+
 
 
 
@@ -32,9 +65,9 @@ public class v2 {
 
     }
 
-    public static void play(int a) {
+    public static void play(int a) throws FileNotFoundException {
         if (a == 1) { //1 means play, 0 means quit
-            createWord(wordList);
+            word = createWord("HangmanWordsList.txt");
             System.out.println(word); //delete for final
             for (int i = 0; i < word.length(); i++) { //create the ----, uses for loop to see how many - are needed
                 statement = statement + "-";
@@ -88,11 +121,12 @@ public class v2 {
 
     }
 
-    public static void createWord(String[] in) { //todo take file as input
-        word = getRandomWord(in);
+    public static String createWord(String in) throws FileNotFoundException { //todo take file as input
+        //word = getRandomWord(in);
+        return getRandomWord(readStrFile(in));
     }
 
-    public static void checkPlayAgain() {
+    public static void checkPlayAgain() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Do you want to play again? (y/n)");
         input = scanner.nextLine();
@@ -150,6 +184,64 @@ public class v2 {
         return a[rand.nextInt(upperbound)];
 
 
+    }
+
+    private static String[] readStrFile(String inputFilename) throws FileNotFoundException {
+        File file = new File(inputFilename);
+        Scanner scanner = new Scanner(file);
+        int numberOfLinesInFile = countLinesInFile(inputFilename);
+        String[] data = new String[numberOfLinesInFile];
+        int index = 0;
+        while (scanner.hasNextLine()) {
+            data[index++] = scanner.nextLine();
+        }
+        scanner.close();
+        return data;
+    }
+
+    private static int countLinesInFile(String inputFilename) throws FileNotFoundException {
+        File file = new File(inputFilename);
+        Scanner scanner = new Scanner(file);
+        int lineCount = 0;
+        while (scanner.hasNextLine()) {
+            lineCount++;
+            scanner.nextLine();
+        }
+        scanner.close();
+        return lineCount;
+    }
+
+    public static void addToFile(String outPutFilename, String word) throws IOException {
+        word = word.toUpperCase();
+        System.out.println("1");
+        System.out.println(findInFile("HangmanWordsList.txt", word));
+        if (findInFile("HangmanWordsList.txt", word)) {
+            System.out.println("This word is already in the text list!");
+            System.out.println("2");
+        }
+        else {
+            System.out.println("3");
+            File file = new File(outPutFilename);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+            bufferedWriter.newLine();
+            bufferedWriter.write(word);
+            bufferedWriter.close();
+            System.out.println("The " + word + " has been added. ");
+        }
+    }
+
+    public static boolean findInFile(String outPutFilename, String word) throws IOException { //todo binary search
+        word = word.toUpperCase();
+        File file = new File(outPutFilename);
+        int numberOfLinesInFile = countLinesInFile(outPutFilename);
+        System.out.println(numberOfLinesInFile);
+        for (int i = 0; i<numberOfLinesInFile;i++) {
+            System.out.println(i);
+            if (readStrFile("HangmanWordsList.txt")[i].equals(word)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
