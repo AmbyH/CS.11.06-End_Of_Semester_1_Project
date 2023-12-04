@@ -4,6 +4,7 @@ are you allowed to guess a whole word?
 
  */
 import java.io.*;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,8 +33,12 @@ public class v2 {
             if (input.equals("y")) {
                 System.out.println("What do you want to input? (This change will be permanent)");
                 input = scanner.nextLine();
-                addToFile("HangmanWordsList.txt", input);
-                System.out.println(input + " has been added. ");
+                if(binarySearch(input)) {
+                    System.out.println("This word is already in the list!");
+                }
+                else {
+                    sortWriteFile("HangmanWordsList.txt");
+                }
                 System.out.println("Do you want to add more words? (y/n)");
                 input = scanner.nextLine();
                 while (!checkValidInput(input)) {
@@ -199,6 +204,20 @@ public class v2 {
         return data;
     }
 
+    private static String[] readStrFileAdd(String inputFilename) throws FileNotFoundException {
+        File file = new File(inputFilename);
+        Scanner scanner = new Scanner(file);
+        int numberOfLinesInFile = countLinesInFile(inputFilename) + 1;
+        String[] data = new String[numberOfLinesInFile];
+        int index = 0;
+        while (scanner.hasNextLine()) {
+            data[index++] = scanner.nextLine();
+        }
+        scanner.close();
+        data[numberOfLinesInFile-1] = input.toUpperCase();
+        return data;
+    }
+
     private static int countLinesInFile(String inputFilename) throws FileNotFoundException {
         File file = new File(inputFilename);
         Scanner scanner = new Scanner(file);
@@ -211,27 +230,8 @@ public class v2 {
         return lineCount;
     }
 
-    public static void addToFile(String outPutFilename, String word) throws IOException {
-        word = word.toUpperCase();
-        System.out.println("1");
-        System.out.println(findInFile("HangmanWordsList.txt", word));
-        if (findInFile("HangmanWordsList.txt", word)) {
-            System.out.println("This word is already in the text list!");
-            System.out.println("2");
-        }
-        else {
-            System.out.println("3");
-            File file = new File(outPutFilename);
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.newLine();
-            bufferedWriter.write(word);
-            bufferedWriter.close();
-            System.out.println("The " + word + " has been added. ");
-        }
-    }
-
-    public static boolean findInFile(String outPutFilename, String word) throws IOException { //todo binary search
-        word = word.toUpperCase();
+    public static boolean findInFile(String outPutFilename) throws IOException { //todo binary search
+        word = input.toUpperCase();
         File file = new File(outPutFilename);
         int numberOfLinesInFile = countLinesInFile(outPutFilename);
         System.out.println(numberOfLinesInFile);
@@ -243,5 +243,45 @@ public class v2 {
         }
         return false;
     }
+    public static boolean binarySearch(String target) throws FileNotFoundException {
+        String[] words = readStrFile("HangmanWordsList.txt");
+        int left = 0;
+        int right = words.length - 1;
+
+        while (left <= right) {
+            int middle = (left + right) / 2;
+            int comparison = target.compareTo(words[middle]);
+
+            if (comparison == 0) {
+                return true; // Word found at the middle index
+            } else if (comparison < 0) {
+                right = middle - 1; // Search the left half of the array
+            } else {
+                left = middle + 1; // Search the right half of the array
+            }
+        }
+
+        return false; // Word not found in the array
+    }
+    public static void sortWriteFile(String filePath) throws FileNotFoundException {
+        String[] temp = readStrFileAdd("HangmanWordsList.txt");
+        // Sort the array alphabetically
+        Arrays.sort(temp);
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
+            for (String word : temp) {
+                writer.write(word);
+                writer.newLine();
+            }
+            writer.close();
+
+            System.out.println("Word written added successfully.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
