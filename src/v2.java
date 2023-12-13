@@ -1,6 +1,9 @@
-/*questions to ask:
-are you allowed to guess a whole word?
-
+/*
+a. Amboise
+b. 13th of Dec
+c. Hangman
+d. Mr Ewing, Ms Nahar
+e. Basic hangman game. You can add words to the hangmans word file, but this change will be permanent.
 
  */
 import java.io.*;
@@ -13,7 +16,7 @@ public class v2 {
     public static String statement = "";
     public static String newstatement = "";
     public static String input = "";
-    public static int guesses = 8;
+    public static int guesses = 7;
     public static String[] wordList = {"HELLO", "GOODBYE", "PYTHAGORAS", "CHAIR", "BICUBIC", "MONITOR", "RECOMMENDATION", "MYOPIC", "VISION", "PROJECT"};
 
     public v2() throws IOException {
@@ -73,7 +76,7 @@ public class v2 {
     public static void play(int a) throws FileNotFoundException {
         if (a == 1) { //1 means play, 0 means quit
             word = createWord("HangmanWordsList.txt");
-            System.out.println(word); //delete for final
+            //System.out.println(word); //delete for final
             for (int i = 0; i < word.length(); i++) { //create the ----, uses for loop to see how many - are needed
                 statement = statement + "-";
             }
@@ -96,12 +99,14 @@ public class v2 {
                         System.out.println("The word was " + word + ". ");
                     }
                     else {
+                        hangman(guesses);
                         System.out.println("Guess another letter. ");
                     }
                 }
                 else {
                     guesses = guesses -1;
                     if (guesses==0) {
+                        hangman(guesses);
                         System.out.println("You have lost the game. ");
                         System.out.println("The word was " + word + ". ");
                         gameOver = true;
@@ -109,6 +114,7 @@ public class v2 {
                     else {
                         System.out.println("The letter " + input + " was not in the word. ");
                         System.out.println("You have " + guesses + " guesses remaining. ");
+                        hangman(guesses);
                         System.out.println("Input another letter. ");
                     }
                 }
@@ -143,7 +149,7 @@ public class v2 {
                 if (input.equals("y")) {
                     chosen = true;
                     statement = ""; //reset word
-                    guesses = 8; //reset guesses
+                    guesses = 7; //reset guesses
                     play(1); //play again
                 } else {
                     chosen = true;
@@ -282,6 +288,63 @@ public class v2 {
             e.printStackTrace();
         }
     }
-
-
+    public static void hangman(int a) {
+        if (a == 6) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 5) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 4) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("   |   |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 3) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("  /|   |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 2) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("  /|\\  |");
+            System.out.println("       |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 1) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("  /|\\  |");
+            System.out.println("  /    |");
+            System.out.println("       |");
+            System.out.println("=========");
+        } else if (a == 0) {
+            System.out.println("   +---+");
+            System.out.println("   |   |");
+            System.out.println("   O   |");
+            System.out.println("  /|\\  |");
+            System.out.println("  / \\  |");
+            System.out.println("       |");
+            System.out.println("=========");
+        }
+    }
 }
