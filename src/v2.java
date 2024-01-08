@@ -66,7 +66,7 @@ public class v2 {
     public static void play(int a) throws FileNotFoundException {
         if (a == 1) { //1 means play, 0 means quit
             word = getRandomWord(readStrFile("HangmanWordsList.txt"));
-            //System.out.println(word); //delete for final
+            System.out.println(word); //delete for final
             for (int i = 0; i < word.length(); i++) { //create the ----, uses for loop to see how many - are needed
                 statement = statement + "-";
             }
