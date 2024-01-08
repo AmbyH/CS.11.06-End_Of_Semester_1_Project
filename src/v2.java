@@ -231,13 +231,14 @@ public class v2 {
         return false;
     }
     public static boolean binarySearch(String target) throws FileNotFoundException {
+        String target2 = target.toUpperCase();
         String[] words = readStrFile("HangmanWordsList.txt");
         int left = 0;
         int right = words.length - 1;
 
         while (left <= right) {
             int middle = (left + right) / 2;
-            int comparison = target.compareTo(words[middle]);
+            int comparison = target2.compareTo(words[middle]);
 
             if (comparison == 0) {
                 return true; // Word found at the middle index
@@ -263,7 +264,7 @@ public class v2 {
             }
             writer.close();
 
-            System.out.println("Word written added successfully.");
+            System.out.println("Word added successfully.");
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc53e71a-82ba-46f1-91a7-a12b8bd4014e" name="Changes" comment="fifth version - added drawing hangman">
+    <list default="true" id="fc53e71a-82ba-46f1-91a7-a12b8bd4014e" name="Changes" comment="sixth version - clean up unnecessary methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HangmanWordsList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/HangmanWordsList.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/v2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/v2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +86,8 @@
       <workItem from="1701302376247" duration="4973000" />
       <workItem from="1701652139907" duration="3162000" />
       <workItem from="1702436850848" duration="1698000" />
-      <workItem from="1704683176602" duration="734000" />
+      <workItem from="1704683176602" duration="835000" />
+      <workItem from="1704710486225" duration="2134000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <option name="closed" value="true" />
@@ -119,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702438350094</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="sixth version - clean up unnecessary methods">
+      <option name="closed" value="true" />
+      <created>1704683989021</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704683989021</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +140,7 @@
     <MESSAGE value="third version - todo binary search" />
     <MESSAGE value="fourth version - finished binary search" />
     <MESSAGE value="fifth version - added drawing hangman" />
-    <option name="LAST_COMMIT_MESSAGE" value="fifth version - added drawing hangman" />
+    <MESSAGE value="sixth version - clean up unnecessary methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="sixth version - clean up unnecessary methods" />
   </component>
 </project>
