@@ -60,29 +60,19 @@ public class v2 {
 
         }
         play(1);
-
-
-
-
-
-
-
-
-
-
-
+        scanner.close();
     }
 
     public static void play(int a) throws FileNotFoundException {
         if (a == 1) { //1 means play, 0 means quit
-            word = createWord("HangmanWordsList.txt");
+            word = getRandomWord(readStrFile("HangmanWordsList.txt"));
             //System.out.println(word); //delete for final
             for (int i = 0; i < word.length(); i++) { //create the ----, uses for loop to see how many - are needed
                 statement = statement + "-";
             }
             Scanner scanner = new Scanner(System.in);
             boolean gameOver = false;
-            while(!gameOver) { //while word has not been guessed
+            while (!gameOver) { //while word has not been guessed
                 newstatement = "";
                 System.out.println(statement);
                 input = scanner.nextLine();
@@ -97,21 +87,18 @@ public class v2 {
                         gameOver = true;
                         System.out.println("Congratulations! You have beaten the game with " + guesses + " guesses left. ");
                         System.out.println("The word was " + word + ". ");
-                    }
-                    else {
+                    } else {
                         hangman(guesses);
                         System.out.println("Guess another letter. ");
                     }
-                }
-                else {
-                    guesses = guesses -1;
-                    if (guesses==0) {
+                } else {
+                    guesses = guesses - 1;
+                    if (guesses == 0) {
                         hangman(guesses);
                         System.out.println("You have lost the game. ");
                         System.out.println("The word was " + word + ". ");
                         gameOver = true;
-                    }
-                    else {
+                    } else {
                         System.out.println("The letter " + input + " was not in the word. ");
                         System.out.println("You have " + guesses + " guesses remaining. ");
                         hangman(guesses);
@@ -122,19 +109,12 @@ public class v2 {
 
             }
             checkPlayAgain(); //asks if they want to play again and runs if yes
+            scanner.close();
 
-        }
-        else {
+        } else {
             System.out.println("Thanks for playing! See you next time. ");
             System.exit(0);
         }
-
-
-    }
-
-    public static String createWord(String in) throws FileNotFoundException { //todo take file as input
-        //word = getRandomWord(in);
-        return getRandomWord(readStrFile(in));
     }
 
     public static void checkPlayAgain() throws FileNotFoundException {
@@ -151,13 +131,14 @@ public class v2 {
                     statement = ""; //reset word
                     guesses = 7; //reset guesses
                     play(1); //play again
+                    scanner.close();
                 } else {
                     chosen = true;
                     play(0);
+                    scanner.close();
                 }
             }
         }
-
     }
 
     public static void updateWord() { //letter is checked to be in the word already, updates to show word with the letter in it
