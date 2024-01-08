@@ -75,6 +75,7 @@ public class v2 {
             while (!gameOver) { //while word has not been guessed
                 newstatement = "";
                 System.out.println(statement);
+                System.out.println("Guess a letter!");
                 input = scanner.nextLine();
                 while (!checkValidInput(input)) { //in case of invalid input
                     System.out.println("Input any letter. ");
@@ -102,7 +103,6 @@ public class v2 {
                         System.out.println("The letter " + input + " was not in the word. ");
                         System.out.println("You have " + guesses + " guesses remaining. ");
                         hangman(guesses);
-                        System.out.println("Input another letter. ");
                     }
                 }
 
